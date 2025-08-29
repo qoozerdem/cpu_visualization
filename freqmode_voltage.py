@@ -151,7 +151,7 @@ for ncc, output_path, voltage_dict, ss_tt_dict, freq_modes in zip(
     with open(output_path, 'w', newline='') as g:
         writer = csv.writer(g)
         # Write header row
-        writer.writerow(['Voltage', 'Average Value', 'ss', 'tt', 'delta_ss', 'delta_tt'])
+        writer.writerow(['Frequency', 'Average Value', 'ss', 'tt', 'delta_ss', 'delta_tt'])
         # For each frequency mode, write the average and metadata if voltage and ss/tt are present
         for opt in freq_modes:
             voltage = voltage_dict[opt]
