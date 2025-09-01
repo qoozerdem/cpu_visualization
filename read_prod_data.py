@@ -135,8 +135,10 @@ with open('freq_dict_avg.csv', 'w', newline='') as f:
     writer = csv.writer(f)
     writer.writerow(['freq', 'avg'])
     for key in freq_dict_avg:
+        #Because of outliers in higher frequencies only the frequencies that has at least 1/1000 of valid vmin 
         if freq_dict_avg[key][1]>0.001*total_positive_tests:
            writer.writerow([freq_dict[key], freq_dict_avg[key][1]/freq_dict_avg[key][0]])
+
 
 
 
