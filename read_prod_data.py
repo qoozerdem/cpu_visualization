@@ -124,7 +124,7 @@ with open(r'\\encore\pteit_mlds_datasync\SmlApp_PTE\users\nandeepd\ecid_iddq_aps
                          float(row[wlc_cx["iddq"]]) / 127.15,
                          row[wlc_cx['fab']]
                      ])
-                     #while filling up the output.csv file with prod data we also calculate keep a record of voltage values and how many data points exist for each frequency so we can take average
+                     #while filling up the output.csv file with prod data we also  keep a record of voltage values and how many data points exist for each frequency so we can take average
                      if bin_val!=1.3:
                        freq_dict_avg[freqs[i]][0]+=1
                        freq_dict_avg[freqs[i]][1]+=bin_val
@@ -137,6 +137,7 @@ with open('freq_dict_avg.csv', 'w', newline='') as f:
     for key in freq_dict_avg:
         if freq_dict_avg[key][1]>0.001*total_positive_tests:
            writer.writerow([freq_dict[key], freq_dict_avg[key][1]/freq_dict_avg[key][0]])
+
 
 
 
