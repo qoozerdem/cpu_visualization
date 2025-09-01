@@ -23,22 +23,36 @@ with open(r'\\encore\pteit_mlds_datasync\SmlApp_PTE\users\nandeepd\ecid_iddq_aps
     reader = csv.reader(f)
     headers = next(reader)  # Reads the first line (header row)
     count = 0
+    #because we check the keywords it is a good practice to check the keywords looked in the data were found exatly once
+    # safety list is appended with a different value every time and checked if it has any duplicate elements
+    safety=[]
 
     for i in headers:
-        if 'IDDQ' in i and 'APC1_CX' in i:
+        if "fprom" in i and 'IDDQ' in i and 'APC1_CX' in i:
             wlc_cx.update({'iddq': count})
+            safety.append(0)
         if 'fablot' in i:
             wlc_cx.update({'fab': count})
-        if 'starttime' in i:
+            safety.append(1)
+        if 'starttime_utc_FT1' in i:
             wlc_cx.update({"time": count})
+            safety.append(2)
+
         if 'core' in i and 'cl1' in i and 'cx' in i and 'apc1' in i:
             for j in freqs:
                 if j in i:
                     for k in cores:
                         if k in i:
                             wlc_cx.update({j + k: count})
+                            safety.append((freqs.index(j)+1)*len(freqs)+cores.index(k))
+        
 
         count += 1
+
+    # 0 printed means key wrods looked in the data were found in nore more than 1 test
+    print(len(safety)-len(list(set(safety))))
+
+
 
 # Collect all week numbers
 weeks = []
@@ -123,6 +137,14 @@ with open('freq_dict_avg.csv', 'w', newline='') as f:
     for key in freq_dict_avg:
         if freq_dict_avg[key][1]>0.001*total_positive_tests:
            writer.writerow([freq_dict[key], freq_dict_avg[key][1]/freq_dict_avg[key][0]])
+
+
+
+
+
+
+
+
 
 
 
